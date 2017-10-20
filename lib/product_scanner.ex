@@ -8,11 +8,14 @@ defmodule ProductScanner do
 
   ## Examples
 
-      iex> ProductScanner.hello
-      :world
+      iex> ProductScanner.scan("VOUCHER")
+      "VOUCHER"
 
   """
-  def hello do
-    :world
+  def scan(product_name) when product_name == "" or product_name == nil do
+    raise ArgumentError, message: "invalid argument, you must insert a valid product"
+  end
+  def scan(product_name) do
+    product_name
   end
 end
