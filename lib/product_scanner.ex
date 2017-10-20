@@ -24,10 +24,22 @@ defmodule ProductScanner do
       "VOUCHER"
 
   """
-  def scan(product_name) when product_name == "" or product_name == nil do
-    raise ArgumentError, message: "invalid argument, you must insert a valid product"
-  end
   def scan(product_name) do
-    product_name
+    is_valid = Enum.all?(valid_product_rules(product_name))
+    case is_valid do
+      true -> product_name
+      _ -> raise ArgumentError, message: "invalid argument, you must insert a valid product"
+    end
   end
+
+  defp valid_product_rules(product_name) do
+    [
+      product_not_nil(product_name),
+      product_not_empty(product_name)
+    ]
+  end
+
+  defp product_not_nil(product), do: product != nil
+
+  defp product_not_empty(product), do: product != ""
 end
