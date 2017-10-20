@@ -1,10 +1,22 @@
+alias ProductScanner.Discounters.RegisterDiscounters
 defmodule ProductScanner do
   @moduledoc """
   Documentation for ProductScanner.
   """
+  alias __MODULE__, as: ProductScanner
+  defstruct ~w(discounters)a
 
   @doc """
-  Hello world.
+  Initialization of modules used
+  """
+  def init do
+    %ProductScanner{
+      discounters: RegisterDiscounters.available_discounters()
+    }
+  end
+
+  @doc """
+  Scan products in any order.
 
   ## Examples
 
