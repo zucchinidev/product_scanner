@@ -8,6 +8,9 @@ defmodule ProductScanner.Discounters.RegisterDiscountersTest do
   ]
 
   test "should allow return a struct with one list of discounters modules" do
-    assert available_discounters() == [DefaultDiscounter, TwoForOneDiscounter]
+    assert available_discounters() == %{
+              default: DefaultDiscounter,
+              two_for_one: TwoForOneDiscounter
+           }
   end
 end
