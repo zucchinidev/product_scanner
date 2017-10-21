@@ -1,4 +1,4 @@
-defmodule Product.Infrastructure.InMemoryProductRepository do
+defmodule Product.Infrastructure.ProductRepository do
   @moduledoc """
   Logic that handle the products list
   """
