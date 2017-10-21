@@ -11,8 +11,10 @@ defmodule ProductScannerTest do
     {:ok, Map.from_struct(init())}
   end
 
-  test "should have two discount modules", state do
-    assert length(state.discounters) == 2
+  test "should have modules to apply discounts", %{discounters: discounters} do
+    assert is_map(discounters)
+    assert is_atom(discounters.default)
+    assert function_exported?(discounters.default, :perform_discount, 1)
   end
 
   test "should allow a scan a product" do
