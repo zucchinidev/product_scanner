@@ -11,7 +11,7 @@ defmodule Product.ValidProductSpecificationTest do
     assert is_satisfied_by(product) == true
   end
 
-  test "should should check if a product is not valid" do
+  test "should check if a product is not valid" do
     invalid_products = ["", nil]
     invalid_products |> Enum.each(fn product ->
       assert is_satisfied_by(product) == false
