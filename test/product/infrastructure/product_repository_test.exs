@@ -4,21 +4,16 @@ defmodule Product.Infrastructure.ProductRepositoryTest do
 
   alias Product.Infrastructure.ProductRepository
 
-  test "there should be no products" do
+  test "should retrieve all available products" do
     {:ok, pid} = ProductRepository.start_link()
-    assert ProductRepository.count(pid) == 0
+    assert ProductRepository.get_all(pid) == get_products()
   end
 
-  test "should adds a product to the list" do
-    {:ok, pid} = ProductRepository.start_link()
-    ProductRepository.add(pid, :foo)
-    assert ProductRepository.count(pid) == 1
-  end
-
-  test "should retrieve all products of the list" do
-    {:ok, pid} = ProductRepository.start_link()
-    ProductRepository.add(pid, :bar)
-    ProductRepository.add(pid, :foo)
-    assert ProductRepository.get_all(pid) == [:foo, :bar]
+  defp get_products do
+    [
+      %Product{code: "VOUCHER", name: "Cabify Voucher", price: 5},
+      %Product{code: "TSHIRT", name: "Cabify T-Shirt", price: 20},
+      %Product{code: "MUG", name: "Cafify Coffee Mug", price: 7.5}
+    ]
   end
 end
