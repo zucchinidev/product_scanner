@@ -1,9 +1,9 @@
-defmodule Discounters.RegisterDiscountersTest do
+defmodule Discounters.LoaderTest do
   use ExUnit.Case
-  doctest Discounters.RegisterDiscounters
+  doctest Discounters.DiscountsLoader
   alias Discounters.{DefaultDiscounter,TwoForOneDiscounter}
 
-  import Discounters.RegisterDiscounters, only: [
+  import Discounters.DiscountsLoader, only: [
     available_discounters: 0
   ]
 

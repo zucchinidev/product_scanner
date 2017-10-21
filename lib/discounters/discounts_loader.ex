@@ -1,4 +1,4 @@
-defmodule Discounters.RegisterDiscounters do
+defmodule Discounters.DiscountsLoader do
   @moduledoc """
   This module register all discounters available.
   """

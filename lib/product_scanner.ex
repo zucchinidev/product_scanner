@@ -4,7 +4,7 @@ defmodule ProductScanner do
   """
   alias __MODULE__, as: ProductScanner
   defstruct ~w(discounters)a
-  alias Discounters.RegisterDiscounters
+  alias Discounters.DiscountsLoader
   alias Product.ValidProductSpecification
 
   @doc """
@@ -12,7 +12,7 @@ defmodule ProductScanner do
   """
   def init do
     %ProductScanner{
-      discounters: RegisterDiscounters.available_discounters()
+      discounters: DiscountsLoader.available_discounters()
     }
   end
 
