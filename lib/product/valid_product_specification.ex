@@ -1,4 +1,4 @@
-defmodule ProductScanner.Product.ValidProductSpecification do
+defmodule Product.ValidProductSpecification do
   @moduledoc """
   This module validate a product to see if it fulfils the set of rules of domain
   """
@@ -7,7 +7,7 @@ defmodule ProductScanner.Product.ValidProductSpecification do
   Allows verification of the domain rules applied to the products
     ## Examples
 
-    iex> ProductScanner.Product.ValidProductSpecification.is_satisfied_by("VOUCHER")
+    iex> Product.ValidProductSpecification.is_satisfied_by("VOUCHER")
     true
   """
   def is_satisfied_by(product) do

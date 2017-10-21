@@ -1,8 +1,8 @@
-defmodule ProductScanner.Discounters.RegisterDiscounters do
+defmodule Discounters.RegisterDiscounters do
   @moduledoc """
   This module register all discounters available.
   """
-  alias ProductScanner.Discounters.{DefaultDiscounter,TwoForOneDiscounter}
+  alias Discounters.{DefaultDiscounter,TwoForOneDiscounter}
 
   def available_discounters do
     %{

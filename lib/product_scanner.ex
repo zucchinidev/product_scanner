@@ -4,8 +4,8 @@ defmodule ProductScanner do
   """
   alias __MODULE__, as: ProductScanner
   defstruct ~w(discounters)a
-  alias ProductScanner.Discounters.RegisterDiscounters
-  alias ProductScanner.Product.ValidProductSpecification
+  alias Discounters.RegisterDiscounters
+  alias Product.ValidProductSpecification
 
   @doc """
   Initialization of modules used

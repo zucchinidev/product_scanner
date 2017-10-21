@@ -1,8 +1,8 @@
-defmodule ProductScanner.Discounters.DefaultDiscounterTest do
+defmodule Discounters.DefaultDiscounterTest do
   use ExUnit.Case
-  doctest ProductScanner.Discounters.DefaultDiscounter
+  doctest Discounters.DefaultDiscounter
 
-  import ProductScanner.Discounters.DefaultDiscounter, only: [
+  import Discounters.DefaultDiscounter, only: [
     perform_discount: 1
   ]
 

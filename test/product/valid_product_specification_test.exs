@@ -1,8 +1,8 @@
-defmodule ProductScanner.Product.ValidProductSpecificationTest do
+defmodule Product.ValidProductSpecificationTest do
   use ExUnit.Case
-  doctest ProductScanner.Product.ValidProductSpecification
+  doctest Product.ValidProductSpecification
 
-  import ProductScanner.Product.ValidProductSpecification, only: [
+  import Product.ValidProductSpecification, only: [
     is_satisfied_by: 1
   ]
 
