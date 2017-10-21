@@ -15,12 +15,12 @@ defmodule ProductScannerTest do
     assert length(state.discounters) == 2
   end
 
-  test "should allow a scan to valid product" do
+  test "should allow a scan a product" do
     product = "fake_product"
     assert scan(product) == product
   end
 
-  test "should throw an ArgumentError when the product is nil or empty" do
+  test "should throw an error when the product inserted is not valid" do
     invalid_products = ["", nil]
     invalid_products |> Enum.each(fn product ->
       assert_raise ArgumentError, fn ->
