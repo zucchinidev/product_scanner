@@ -1,33 +1,31 @@
 defmodule ProductScannerTest do
   use ExUnit.Case
-  doctest ProductScanner
 
   import ProductScanner, only: [
-    scan: 1,
-    init: 0
+    start_link: 0,
+    scan: 2
   ]
 
-  setup do
-    {:ok, Map.from_struct(init())}
-  end
+  test "should have modules to apply discounts" do
+    {:ok, pid} = start_link()
+    %ProductScanner{discounters: discounters} = :sys.get_state(pid)
 
-  test "should have modules to apply discounts", %{discounters: discounters} do
     assert is_map(discounters)
     assert is_atom(discounters.default)
     assert function_exported?(discounters.default, :perform_discount, 1)
   end
 
   test "should allow a scan a product" do
+    {:ok, pid} = start_link()
     product = "fake_product"
-    assert scan(product) == product
+    {:ok, _state} = scan(pid, product)
   end
 
-  test "should throw an error when the product inserted is not valid" do
+  test "should verify if any product inserted is not valid" do
+    {:ok, pid} = start_link()
     invalid_products = ["", nil]
     invalid_products |> Enum.each(fn product ->
-      assert_raise ArgumentError, fn ->
-        scan(product)
-      end
+      {:error, _msg} = scan(pid, product)
     end)
   end
 end
