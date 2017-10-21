@@ -1,10 +1,11 @@
-alias ProductScanner.Discounters.RegisterDiscounters
 defmodule ProductScanner do
   @moduledoc """
   Documentation for ProductScanner.
   """
   alias __MODULE__, as: ProductScanner
   defstruct ~w(discounters)a
+  alias ProductScanner.Discounters.RegisterDiscounters
+  alias ProductScanner.Product.ValidProductSpecification
 
   @doc """
   Initialization of modules used
@@ -25,21 +26,9 @@ defmodule ProductScanner do
 
   """
   def scan(product_name) do
-    is_valid = Enum.all?(valid_product_rules(product_name))
-    case is_valid do
+    case ValidProductSpecification.is_satisfied_by(product_name) do
       true -> product_name
       _ -> raise ArgumentError, message: "invalid argument, you must insert a valid product"
     end
   end
-
-  defp valid_product_rules(product_name) do
-    [
-      product_not_nil(product_name),
-      product_not_empty(product_name)
-    ]
-  end
-
-  defp product_not_nil(product), do: product != nil
-
-  defp product_not_empty(product), do: product != ""
 end
