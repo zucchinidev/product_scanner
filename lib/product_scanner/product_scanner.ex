@@ -3,15 +3,12 @@ defmodule ProductScanner do
   Documentation for ProductScanner.
   """
   alias __MODULE__, as: ProductScanner
-  defstruct ~w(discounters product_respository scanned_products_repository)a
-  alias Discounters.DiscountsLoader
+  defstruct ~w(product_respository scanned_products_repository)a
   alias Product.ValidProductSpecification
-  alias ProductScanner.Infrastructure.ScannedProductsRepository
-  alias Product.Infrastructure.ProductRepository
   use GenServer
 
-  def start_link do
-    GenServer.start_link(__MODULE__, create_state())
+  def start_link(%ProductScanner{} = state) do
+    GenServer.start_link(__MODULE__, state)
   end
 
   @doc """
@@ -27,6 +24,19 @@ defmodule ProductScanner do
     GenServer.call(pid, {:scan, product_name})
   end
 
+  @doc """
+  Retrieve all scanned products.
+
+  ## Examples
+
+      iex> ProductScanner.get_scanned_products(pid)
+      ["VOUCHER", "TSHIRT"]
+
+  """
+  def get_scanned_products(pid) do
+    GenServer.call(pid, :get_scanned_products)
+  end
+
   def handle_call({:scan, product_name}, _from, state) do
     case ValidProductSpecification.is_satisfied_by(product_name) do
       true ->
@@ -39,13 +49,9 @@ defmodule ProductScanner do
     end
   end
 
-  defp create_state do
-    {:ok, product_repository_pid} = ProductRepository.start_link()
-    {:ok, scanned_products_repository_pid} = ScannedProductsRepository.start_link()
-    %ProductScanner{
-      discounters: DiscountsLoader.available_discounters(),
-      product_respository: {product_repository_pid, ProductRepository},
-      scanned_products_repository: {scanned_products_repository_pid, ScannedProductsRepository}
-    }
+  def handle_call(:get_scanned_products, _from, state) do
+    {pid, repository} = state.scanned_products_repository
+    products = apply(repository, :get_all, [pid])
+    {:reply, products, state}
   end
 end
