@@ -5,8 +5,7 @@ defmodule Product.Infrastructure.ProductRepositoryTest do
   alias Product.Infrastructure.ProductRepository
 
   test "should retrieve all available products" do
-    {:ok, pid} = ProductRepository.start_link()
-    assert ProductRepository.get_all(pid) == get_products()
+    assert ProductRepository.get_all() == get_products()
   end
 
   defp get_products do
