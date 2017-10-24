@@ -1,6 +1,6 @@
 defmodule Discounters.ThreeOrMoreDiscounter do
   @moduledoc """
-  This module performs operations to realize the discount two by one.
+  This module performs operations to realize the discount three or more by one.
   """
 
   @doc """
