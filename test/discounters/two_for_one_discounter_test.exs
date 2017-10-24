@@ -15,5 +15,6 @@ defmodule Discounters.TwoForOneDiscounterTest do
     assert perform_discount([product, product]) == 5
     assert perform_discount([product]) == 5
     assert perform_discount([product, product, product, product]) == 10
+    assert perform_discount([]) == 0
   end
 end

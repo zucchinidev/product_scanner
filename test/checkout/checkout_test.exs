@@ -30,6 +30,7 @@ defmodule CheckoutTest do
 
   defp get_test_cases do
     [
+      %{scan_products: [], result: 0},
       %{scan_products: ["VOUCHER", "VOUCHER", "VOUCHER"], result: 10},
       %{scan_products: ["VOUCHER", "TSHIRT", "MUG"], result: 32.50},
       %{scan_products: ["VOUCHER", "TSHIRT", "VOUCHER"], result: 25},
