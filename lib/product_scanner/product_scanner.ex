@@ -4,7 +4,7 @@ defmodule ProductScanner do
   """
   alias __MODULE__, as: ProductScanner
   defstruct ~w(product_respository scanned_products_repository)a
-  alias Product.ValidProductSpecification
+  alias Product.ValidScannedProductSpecification
   use GenServer
 
   def start_link(%ProductScanner{} = state) do
@@ -37,11 +37,17 @@ defmodule ProductScanner do
     GenServer.call(pid, :get_scanned_products)
   end
 
-  def handle_call({:scan, product_name}, _from, state) do
-    case ValidProductSpecification.is_satisfied_by(product_name) do
+  def remove_scanned_products(pid) do
+    GenServer.call(pid, :remove_scanned_products)
+  end
+
+  def handle_call({:scan, product_code}, _from, state) do
+    products = apply(state.product_respository, :get_all, [])
+    case ValidScannedProductSpecification.is_satisfied_by(product_code, products) do
       true ->
+        scanned_product = Enum.find(products, fn p -> p.code == product_code end)
         {pid, repository} = state.scanned_products_repository
-        apply(repository, :add, [pid, product_name])
+        apply(repository, :add, [pid, scanned_product])
         {:reply, {:ok, state}, state}
       _ ->
         message = "invalid argument, you must insert a valid product"
@@ -52,6 +58,12 @@ defmodule ProductScanner do
   def handle_call(:get_scanned_products, _from, state) do
     {pid, repository} = state.scanned_products_repository
     products = apply(repository, :get_all, [pid])
+    {:reply, products, state}
+  end
+
+  def handle_call(:remove_scanned_products, _from, state) do
+    {pid, repository} = state.scanned_products_repository
+    products = apply(repository, :remove_all, [pid])
     {:reply, products, state}
   end
 end
