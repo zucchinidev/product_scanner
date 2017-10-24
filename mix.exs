@@ -3,6 +3,8 @@ defmodule ProductScanner.Mixfile do
 
   def project do
     [app: :product_scanner,
+     name: "Product_Scanner",
+     source_url: "https://github.com/zucchinidev/product_scanner",
      version: "0.1.0",
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
@@ -28,6 +30,10 @@ defmodule ProductScanner.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:poison, "~> 3.1"}]
+    [
+      {:poison, "~> 3.1"},
+      {:ex_doc, "~> 0.16", only: :dev, runtime: false},
+      {:earmark, "~> 1.2"}
+    ]
   end
 end
