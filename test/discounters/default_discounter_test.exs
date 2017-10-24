@@ -6,8 +6,12 @@ defmodule Discounters.DefaultDiscounterTest do
     perform_discount: 1
   ]
 
-  test "should allow return a list of products witout modify" do
-    product = "fake_product"
-    assert perform_discount([product]) == [product]
+  test "should calculate the total amount without discount" do
+    product = %Product{
+      price: 7.5,
+      code: "MUG"
+    }
+    assert perform_discount([product, product, product]) == 7.5 * 3
+    assert perform_discount([]) == 0
   end
 end
