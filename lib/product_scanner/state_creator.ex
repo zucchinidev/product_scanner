@@ -6,10 +6,9 @@ defmodule ProductScanner.StateCreator do
   alias ProductScanner.Infrastructure.ScannedProductsRepository
 
   def create do
-    {:ok, product_repository_pid} = ProductRepository.start_link()
     {:ok, scanned_products_repository_pid} = ScannedProductsRepository.start_link()
     %ProductScanner{
-      product_respository: {product_repository_pid, ProductRepository},
+      product_respository: ProductRepository,
       scanned_products_repository: {scanned_products_repository_pid, ScannedProductsRepository}
     }
   end
