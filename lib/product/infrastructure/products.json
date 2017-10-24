@@ -2,16 +2,19 @@
   {
     "code": "VOUCHER",
     "name": "Cabify Voucher",
-    "price": 5
+    "price": 5,
+    "discount_rule": "two_for_one"
   },
   {
     "code": "TSHIRT",
     "name": "Cabify T-Shirt",
-    "price": 20
+    "price": 20,
+    "discount_rule": "three_or_more"
   },
   {
     "code": "MUG",
     "name": "Cafify Coffee Mug",
-    "price": 7.5
+    "price": 7.5,
+    "discount_rule": "empty"
   }
 ]
