@@ -1,9 +1,10 @@
 defmodule Discounters.TwoForOneDiscounterTest do
   use ExUnit.Case
   doctest Discounters.TwoForOneDiscounter
+  alias Discounters.DiscountRules
 
   import Discounters.TwoForOneDiscounter, only: [
-    perform_discount: 1
+    perform_discount: 2
   ]
 
   test "should calculate the total amount with discount" do
@@ -11,10 +12,11 @@ defmodule Discounters.TwoForOneDiscounterTest do
       price: 5,
       code: "VOUCHER"
     }
-    assert perform_discount([product, product, product]) == 10
-    assert perform_discount([product, product]) == 5
-    assert perform_discount([product]) == 5
-    assert perform_discount([product, product, product, product]) == 10
-    assert perform_discount([]) == 0
+    price_rule = DiscountRules.get_rules()[:two_for_one]
+    assert perform_discount([product, product, product], price_rule) == 10
+    assert perform_discount([product, product], price_rule) == 5
+    assert perform_discount([product], price_rule) == 5
+    assert perform_discount([product, product, product, product], price_rule) == 10
+    assert perform_discount([],price_rule) == 0
   end
 end

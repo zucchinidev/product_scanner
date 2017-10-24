@@ -7,10 +7,10 @@ defmodule Discounters.DefaultDiscounter do
   Applies the discount defined by default in the list of products
     ## Examples
 
-      iex> Discounters.DefaultDiscounter.perform_discount([%Product{price: 7.5, code: "MUG"}])
+      iex> Discounters.DefaultDiscounter.perform_discount([%Product{price: 7.5, code: "MUG"}], %{base_price: 1})
       7.5
   """
-  def perform_discount(products) do
+  def perform_discount(products, _price_rule) do
     products
       |> Enum.reduce(0, fn (product, acc) ->
           acc + product.price
