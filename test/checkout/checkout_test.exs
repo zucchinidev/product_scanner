@@ -8,7 +8,7 @@ defmodule CheckoutTest do
     calculate_total_amount: 1
   ]
 
-  test "should calculate total amount of VOUCHER, VOUCHER, VOUCHER" do
+  test "should calculate total amount of a list of scanned products" do
     assert function_exported?(Checkout, :calculate_total_amount, 1)
     {:ok, pid} = ProductScanner.StateCreator.create() |> ProductScanner.start_link()
     state = get_state()
