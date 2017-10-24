@@ -19,7 +19,7 @@ defmodule Checkout do
 
   defp get_products_with_discounted(%Checkout{scanned_products: scanned_products,
     price_rules: price_rules} = state) do
-    segmented_products = Enum.reduce(price_rules, %{}, fn ({key, rule}, acc) ->
+    segmented_products = Enum.reduce(Map.delete(price_rules, :default), %{}, fn ({key, rule}, acc) ->
       related_products = rule[:related_products]
       filter_products = Enum.filter(scanned_products, fn product ->
         Enum.member?(related_products, product.code)

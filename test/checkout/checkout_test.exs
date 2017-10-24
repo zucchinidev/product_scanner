@@ -21,6 +21,19 @@ defmodule CheckoutTest do
     end)
   end
 
+  test "should calculate total amount of a list of scanned products even without default price rule" do
+    {:ok, pid} = ProductScanner.StateCreator.create() |> ProductScanner.start_link()
+    state = get_state()
+    state = Map.delete(state, :default)
+    test_cases = get_test_cases()
+    Enum.each(test_cases, fn t ->
+      Enum.each(t.scan_products, fn product -> ProductScanner.scan(pid, product) end)
+      state = Map.put(state, :scanned_products, ProductScanner.get_scanned_products(pid))
+      assert calculate_total_amount(state) == t.result
+      ProductScanner.remove_scanned_products(pid)
+    end)
+  end
+
   defp get_state do
     %Checkout{
       available_discounters: DiscountsLoader.available_discounters(),

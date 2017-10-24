@@ -32,6 +32,9 @@ defmodule Discounters.DiscountRules do
         related_products: ["TSHIRT"],
         base_price: 20,
         discounted_price: 19
+      },
+      default: %{
+        discounted_price: 1
       }
     }
   end
