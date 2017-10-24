@@ -2,7 +2,7 @@ defmodule CheckoutTest do
   use ExUnit.Case
   alias ProductScanner
   alias Discounters.DiscountsLoader
-  alias Product.Infrastructure.ProductRepository
+  alias Discounters.DiscountRules
 
   import Checkout, only: [
     calculate_total_amount: 1
@@ -23,8 +23,8 @@ defmodule CheckoutTest do
 
   defp get_state do
     %Checkout{
-      product_respository: ProductRepository,
-      available_discounters: DiscountsLoader.available_discounters()
+      available_discounters: DiscountsLoader.available_discounters(),
+      price_rules: DiscountRules.get_rules()
     }
   end
 
