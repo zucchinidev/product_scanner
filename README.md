@@ -21,7 +21,7 @@ The checkout process allows for items to be scanned in any order, and should ret
 
 To start the scanner you can use:
 
-```
+```elixir
 {:ok, pid} = ProductScanner.StateCreator.create() |> ProductScanner.start_link()
 
 Enum.each(["VOUCHER", "TSHIRT", "MUG"], fn product -> ProductScanner.scan(pid, product) end)
