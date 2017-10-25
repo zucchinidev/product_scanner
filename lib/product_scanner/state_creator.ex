@@ -1,6 +1,7 @@
 defmodule ProductScanner.StateCreator do
   @moduledoc """
-  Module to abstract the state creation of the scanner
+  Module to abstract the state creation of the scanner.
+  Allows to inject all dependencies more easily
   """
   alias Product.Infrastructure.ProductRepository
   alias ProductScanner.Infrastructure.ScannedProductsRepository

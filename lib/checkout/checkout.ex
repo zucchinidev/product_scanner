@@ -1,10 +1,25 @@
 defmodule Checkout do
-  @moduledoc false
+  @moduledoc """
+  Implement a checkout process
+  """
 
   alias __MODULE__, as: Checkout
 
   defstruct ~w(scanned_products available_discounters segmented_products price_rules)a
 
+  @doc """
+  Calculates the total quantity of scanned products
+    ## Examples
+
+      iex> Checkout.calculate_total_amount(
+        %Checkout{
+            available_discounters: DiscountsLoader.available_discounters(),
+            price_rules: DiscountRules.get_rules(),
+            scanned_products: ProductScanner.get_scanned_products(pid)
+        }
+      )
+      7.5
+  """
   def calculate_total_amount(%Checkout{} = state) do
     state
       |> calculate_amount()

@@ -1,6 +1,7 @@
 defmodule Discounters.DefaultDiscounter do
   @moduledoc """
   Default discount handler. It will allow not to break the api of the discounters.
+  Calculates the value of non-discounted products
   """
 
   @doc """

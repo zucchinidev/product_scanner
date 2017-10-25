@@ -2,20 +2,28 @@
 
 **TODO: Add description**
 
-## Installation
+## Getting Started
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `product_scanner` to your list of dependencies in `mix.exs`:
+To start the scanner you can use:
 
-```elixir
-def deps do
-  [{:product_scanner, "~> 0.1.0"}]
-end
+```
+{:ok, pid} = ProductScanner.StateCreator.create() |> ProductScanner.start_link()
+
+Enum.each(["VOUCHER", "TSHIRT", "MUG"], fn product -> ProductScanner.scan(pid, product) end)
+
+state = %Checkout{
+              available_discounters: DiscountsLoader.available_discounters(),
+              price_rules: DiscountRules.get_rules(),
+              scanned_products: ProductScanner.get_scanned_products(pid)
+            }
+
+Checkout.calculate_total_amount(state) // 32.50
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/product_scanner](https://hexdocs.pm/product_scanner).
+Documentation can be generated with:
+```
+mix docs
+```
 
 ## Test Cases
 ```elixir
@@ -34,3 +42,8 @@ be found at [https://hexdocs.pm/product_scanner](https://hexdocs.pm/product_scan
 #  22 tests, 0 failures
 
 ```
+## Contributions
+
+If you do make changes to the codebase, please make sure you test your changes thoroughly, and include any unit tests alongside new or changed behaviours.
+
+$ mix test

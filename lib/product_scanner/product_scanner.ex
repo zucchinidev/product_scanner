@@ -37,6 +37,9 @@ defmodule ProductScanner do
     GenServer.call(pid, :get_scanned_products)
   end
 
+  @doc """
+  Removes all scanned products
+  """
   def remove_scanned_products(pid) do
     GenServer.call(pid, :remove_scanned_products)
   end
